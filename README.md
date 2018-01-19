@@ -10,3 +10,6 @@ This works similar to the function present in the Eclipse IDE.
 This is an very old addin of mine ported to vsix.
 
 Visual studio 2015+
+
+Find it in VS Marketplace:
+https://marketplace.visualstudio.com/items?itemName=onolox.SmartSemicolon
