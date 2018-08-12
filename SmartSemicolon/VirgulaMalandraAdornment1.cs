@@ -32,7 +32,7 @@ namespace SmartSemicolon
 
             // Connect to the BeforeKeyPress delegate exposed from the TextDocumentKeyPressEvents object retrieved above.
             try
-            {
+            { 
                 textDocKeyEvents.BeforeKeyPress += new _dispTextDocumentKeyPressEvents_BeforeKeyPressEventHandler(BeforeKeyPress);
             }
             catch (Exception) { }
@@ -45,16 +45,17 @@ namespace SmartSemicolon
                 String nomeArquivo = Selection.Parent.Parent.Name;
                 if (nomeArquivo.EndsWith(".cs") || nomeArquivo.EndsWith(".js"))
                 {
+                    bool isEndOfLine = false;
                     if (linhaPontoVirgula != Selection.ActivePoint.Line)
                     { // Checa se a linha atual da inserção é a mesma, caso não seja cancela todas ações
                         pontoVirgula = false;
                         linhaPontoVirgula = Selection.ActivePoint.Line;
                     }
-
                     if (Selection.ActivePoint.LineCharOffset != colunaAtual)
                     { // Checa se é a mesma coluna
                         pontoVirgula = false;
                         colunaAtual = Selection.ActivePoint.LineCharOffset;
+                        isEndOfLine = Selection.ActivePoint.AtEndOfLine;
                     }
 
                     CancelKeypress = true;
@@ -65,26 +66,30 @@ namespace SmartSemicolon
                     Selection.EndOfLine(false);
                     Selection.CharLeft(true);
                     if (Selection.Text != ";")                  // Se não existir ; no fim da linha insere ; no fim, mas | fica na mesma posição
+
                     {
                         Selection.CharRight(false);
-                        Selection.Insert(";", (int)vsInsertFlags.vsInsertFlagsCollapseToEnd);
-                        Selection.MoveToLineAndOffset(linhaPontoVirgula, colunaPontoVirgula);
+                        Selection.Insert(";");
+                        if (!isEndOfLine)
+                        {
+                            Selection.MoveToLineAndOffset(linhaPontoVirgula, colunaPontoVirgula);
+                        }
 
                         pontoVirgula = true;
                     }
-                    else
+                    else if (!Selection.ActivePoint.AtEndOfLine)
                     {
                         Selection.CharRight(false);
                         Selection.MoveToLineAndOffset(linhaPontoVirgula, colunaPontoVirgula);
-                        Selection.Insert(";", (int)vsInsertFlags.vsInsertFlagsCollapseToEnd);
+                        Selection.Insert(";");
                         pontoVirgula = false;
                     }
-                    applicationObject.UndoContext.Close();
 
+                    applicationObject.UndoContext.Close();
                     colunaAtual = Selection.ActivePoint.LineCharOffset;
+                    isEndOfLine = Selection.ActivePoint.AtEndOfLine;
                 }
             }
-
             else if (Keypress == "\b") // Backspace  
             {
                 if (pontoVirgula)                // Se clicar backspace o ponto e virgula volta a posição inicial do carret
@@ -98,6 +103,7 @@ namespace SmartSemicolon
                         //Selection.ActivePoint.CreateEditPoint().Delete(-1);
                         Selection.MoveToLineAndOffset(linhaPontoVirgula, colunaPontoVirgula, false);
                         Selection.Insert(";", (int)vsInsertFlags.vsInsertFlagsCollapseToEnd);
+
 
                         applicationObject.UndoContext.Close();
                     }
