@@ -43,7 +43,7 @@ namespace SmartSemicolon
             if (Keypress == ";")
             {
                 String nomeArquivo = Selection.Parent.Parent.Name;
-                if (nomeArquivo.EndsWith(".cs") || nomeArquivo.EndsWith(".js"))
+                if (nomeArquivo.EndsWith(".cs") || nomeArquivo.EndsWith(".js") || nomeArquivo.EndsWith(".c") || nomeArquivo.EndsWith(".cpp"))
                 {
                     bool isEndOfLine = false;
                     if (linhaPontoVirgula != Selection.ActivePoint.Line)
