@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="SmartSemicolon.f0c49df8-1221-4d2b-aa53-fd3c2ccb178c" Version="1.1" Language="en-US" Publisher="Fabio M" />
+        <Identity Id="SmartSemicolon.f0c49df8-1221-4d2b-aa53-fd3c2ccb178c" Version="1.2" Language="en-US" Publisher="Fabio M" />
         <DisplayName>SmartSemicolon</DisplayName>
         <Description>Smart Semicolon is fun!.</Description>
     </Metadata>
