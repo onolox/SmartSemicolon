@@ -3,8 +3,7 @@ using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.Utilities;
 
-namespace SmartSemicolon
-{
+namespace SmartSemicolon {
     /// <summary>
     /// Establishes an <see cref="IAdornmentLayer"/> to place the adornment on and exports the <see cref="IWpfTextViewCreationListener"/>
     /// that instantiates the adornment on the event of a <see cref="IWpfTextView"/>'s creation
@@ -12,8 +11,7 @@ namespace SmartSemicolon
     [Export(typeof(IWpfTextViewCreationListener))]
     [ContentType("text")]
     [TextViewRole(PredefinedTextViewRoles.Document)]
-    internal sealed class VirgulaAdornmentTextViewCreationListener : IWpfTextViewCreationListener
-    {
+    internal sealed class VirgulaAdornmentTextViewCreationListener : IWpfTextViewCreationListener {
         // Disable "Field is never assigned to..." and "Field is never used" compiler's warnings. Justification: the field is used by MEF.
 #pragma warning disable 649, 169
 
@@ -34,8 +32,7 @@ namespace SmartSemicolon
         /// Instantiates a VirgulaAdornment manager when the textView is created.
         /// </summary>
         /// <param name="textView">The <see cref="IWpfTextView"/> upon which the adornment should be placed</param>
-        public void TextViewCreated(IWpfTextView textView)
-        {
+        public void TextViewCreated(IWpfTextView textView) {
             // The adornment will listen to any event that changes the layout (text changes, scrolling, etc)
             new VirgulaAdornment(textView, ServiceProvider);
         }
